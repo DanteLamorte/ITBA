@@ -1,0 +1,15 @@
+{
+  "short_name": "Hermanos Jota",
+  "name": "Hermanos Jota | Muebles de autor",
+  "icons": [
+    {
+      "src": "img/logo-hermanos-jota.jpg",
+      "type": "image/jpeg",
+      "sizes": "1000x1000"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#A0522D",
+  "background_color": "#F5E6D3"
+}
