@@ -13,7 +13,7 @@ Dante Lamorte
 ## Arquitectura
 
 ```
-main/
+Entregable 2/
 ├── backend/            API REST con Node.js y Express
 │   ├── data/           productos.js, el array de objetos que sirve la API
 │   ├── middlewares/    logger y manejadores de 404 y de errores
