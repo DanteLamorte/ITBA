@@ -2,7 +2,14 @@ import { useEffect, useState } from 'react';
 import { obtenerProductoPorId } from '../api';
 import { formatearPrecio } from '../formato';
 
-const ProductDetail = ({ id, onVolver, onAgregarAlCarrito }) => {
+const ETIQUETAS = {
+    materiales: 'Materiales y origen',
+    medidas: 'Medidas',
+    terminacion: 'Terminación y acabado',
+    garantia: 'Garantía de taller'
+};
+
+const ProductDetail = ({ id, onVolver, onNavegar, onAgregarAlCarrito }) => {
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -44,11 +51,21 @@ const ProductDetail = ({ id, onVolver, onAgregarAlCarrito }) => {
         );
     }
 
+    const fabricacion = producto.detallesFabricacion || {};
+
     return (
         <section className="detail-page">
-            <button className="back-btn" type="button" onClick={onVolver}>
-                &larr; Volver al catálogo
-            </button>
+            <nav className="breadcrumb" aria-label="Miga de pan">
+                <button className="breadcrumb-link" type="button" onClick={() => onNavegar('inicio')}>
+                    Inicio
+                </button>
+                <span aria-hidden="true">/</span>
+                <button className="breadcrumb-link" type="button" onClick={onVolver}>
+                    Catálogo
+                </button>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page">{producto.nombre}</span>
+            </nav>
 
             <div className="detail-layout">
                 <div className="detail-media">
@@ -58,27 +75,33 @@ const ProductDetail = ({ id, onVolver, onAgregarAlCarrito }) => {
                 <div className="detail-body">
                     <p className="product-category">{producto.categoria}</p>
                     <h1 className="detail-name">{producto.nombre}</h1>
-                    <p className="detail-description">{producto.descripcion}</p>
                     <p className="detail-price">{formatearPrecio(producto.precio)}</p>
 
-                    <button className="btn btn-add" type="button" onClick={() => onAgregarAlCarrito(producto)}>
-                        Añadir al carrito
-                    </button>
+                    <h2 className="detail-subtitle">Descripción</h2>
+                    <p className="detail-description">{producto.descripcion}</p>
 
-                    <h2 className="detail-subtitle">Fabricación</h2>
-                    <ul className="detail-specs">
-                        <li>Madera certificada FSC de bosques responsables argentinos.</li>
-                        <li>Acabado con aceite de lino prensado en frío y cera de abejas.</li>
-                        <li>Adhesivos y tintes de bajo COV, base agua y pigmentos naturales.</li>
-                        <li>Armado en la Casa Taller de San Cristóbal, Buenos Aires.</li>
-                    </ul>
+                    <h2 className="detail-subtitle">Detalles de fabricación y materiales</h2>
+                    <dl className="detail-specs">
+                        {Object.entries(ETIQUETAS).map(([clave, etiqueta]) => (
+                            <div className="spec-row" key={clave}>
+                                <dt>{etiqueta}</dt>
+                                <dd>{fabricacion[clave]}</dd>
+                            </div>
+                        ))}
+                    </dl>
 
-                    <h2 className="detail-subtitle">Garantía</h2>
-                    <p className="detail-description">
-                        Diez años sobre la estructura y cinco sobre los acabados. Incluye el programa Herencia
-                        Viva: servicio de restauración, taller de cuidados y recompra de hasta el 40% del valor
-                        en piezas bien cuidadas.
-                    </p>
+                    <div className="btn-row">
+                        <button
+                            className="btn btn-primary"
+                            type="button"
+                            onClick={() => onAgregarAlCarrito(producto)}
+                        >
+                            Añadir al carrito
+                        </button>
+                        <button className="btn" type="button" onClick={() => onNavegar('contacto')}>
+                            Consultar por encargo a medida
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Home from './components/Home';
 import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
 import ContactForm from './components/ContactForm';
@@ -11,7 +12,7 @@ const App = () => {
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
 
-    const [vista, setVista] = useState('catalogo');
+    const [vista, setVista] = useState('inicio');
     const [idSeleccionado, setIdSeleccionado] = useState(null);
     const [carrito, setCarrito] = useState([]);
 
@@ -55,6 +56,17 @@ const App = () => {
             <Navbar vistaActual={vista} onNavegar={navegar} cantidadEnCarrito={carrito.length} />
 
             <main>
+                {vista === 'inicio' && (
+                    <Home
+                        productos={productos}
+                        cargando={cargando}
+                        error={error}
+                        onNavegar={navegar}
+                        onVerDetalle={verDetalle}
+                        onAgregarAlCarrito={agregarAlCarrito}
+                    />
+                )}
+
                 {vista === 'catalogo' && (
                     <ProductList
                         productos={productos}
@@ -69,6 +81,7 @@ const App = () => {
                     <ProductDetail
                         id={idSeleccionado}
                         onVolver={() => navegar('catalogo')}
+                        onNavegar={navegar}
                         onAgregarAlCarrito={agregarAlCarrito}
                     />
                 )}

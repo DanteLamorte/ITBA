@@ -14,15 +14,20 @@ const Navbar = ({ vistaActual, onNavegar, cantidadEnCarrito }) => {
         <header>
             <nav>
                 <div className="brand-container">
-                    <button className="brand-btn" type="button" onClick={() => ir('catalogo')}>
+                    <button className="brand-btn" type="button" onClick={() => ir('inicio')}>
                         <img className="logo" src="/img/logo-hermanos-jota.jpg" alt="Hermanos Jota" />
                     </button>
-                    <button className="title" type="button" onClick={() => ir('catalogo')}>
+                    <button className="title" type="button" onClick={() => ir('inicio')}>
                         HERMANOS JOTA
                     </button>
                 </div>
 
                 <ul className={menuAbierto ? 'nav-links active' : 'nav-links'}>
+                    <li>
+                        <button type="button" onClick={() => ir('inicio')} aria-current={marcarActual('inicio')}>
+                            Inicio
+                        </button>
+                    </li>
                     <li>
                         <button type="button" onClick={() => ir('catalogo')} aria-current={marcarActual('catalogo')}>
                             Catálogo

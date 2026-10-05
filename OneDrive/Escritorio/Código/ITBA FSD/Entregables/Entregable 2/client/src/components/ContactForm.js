@@ -30,6 +30,12 @@ const ContactForm = () => {
         setFormulario((actual) => ({ ...actual, [name]: value }));
     };
 
+    const limpiar = () => {
+        setFormulario(FORMULARIO_VACIO);
+        setErrores({});
+        setEnviado(false);
+    };
+
     const enviar = (evento) => {
         evento.preventDefault();
 
@@ -47,62 +53,145 @@ const ContactForm = () => {
 
     return (
         <section className="contact-section">
-            <h1>Contacto</h1>
-            <p className="contact-intro">
-                Escribinos y te respondemos dentro de las 48 horas hábiles. También podés visitarnos en la
-                Casa Taller de Av. San Juan 2847, de lunes a viernes de 10:00 a 19:00.
-            </p>
-
-            {enviado && (
-                <p className="form-success" role="status">
-                    Listo, recibimos tu mensaje. Te escribimos a la brevedad.
+            <div className="section-header">
+                <p className="eyebrow">Showroom y taller</p>
+                <h1>Contacto</h1>
+                <p className="lead">
+                    Te acompañamos a elegir piezas nobles, pensadas para convivir con tu casa durante años.
                 </p>
-            )}
+            </div>
 
-            <form className="contact-form" onSubmit={enviar} noValidate>
-                <div className="form-field">
-                    <label htmlFor="nombre">Nombre</label>
-                    <input
-                        id="nombre"
-                        name="nombre"
-                        type="text"
-                        value={formulario.nombre}
-                        onChange={actualizar}
-                        aria-invalid={Boolean(errores.nombre)}
-                    />
-                    {errores.nombre && <span className="form-error">{errores.nombre}</span>}
-                </div>
+            <div className="contact-layout">
+                <article className="contact-panel" aria-labelledby="titulo-formulario">
+                    <p className="eyebrow">Consultas</p>
+                    <h2 id="titulo-formulario">Escribinos</h2>
+                    <p className="lead">
+                        Contanos qué ambiente querés renovar o qué pieza te interesa conocer.
+                    </p>
 
-                <div className="form-field">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formulario.email}
-                        onChange={actualizar}
-                        aria-invalid={Boolean(errores.email)}
-                    />
-                    {errores.email && <span className="form-error">{errores.email}</span>}
-                </div>
+                    {enviado && (
+                        <p className="form-success" role="status">
+                            Listo, recibimos tu mensaje. Te escribimos a la brevedad.
+                        </p>
+                    )}
 
-                <div className="form-field">
-                    <label htmlFor="mensaje">Mensaje</label>
-                    <textarea
-                        id="mensaje"
-                        name="mensaje"
-                        rows="6"
-                        value={formulario.mensaje}
-                        onChange={actualizar}
-                        aria-invalid={Boolean(errores.mensaje)}
-                    />
-                    {errores.mensaje && <span className="form-error">{errores.mensaje}</span>}
-                </div>
+                    <form className="contact-form" onSubmit={enviar} noValidate>
+                        <div className="form-field">
+                            <label htmlFor="nombre">Nombre</label>
+                            <input
+                                id="nombre"
+                                name="nombre"
+                                type="text"
+                                autoComplete="name"
+                                placeholder="Tu nombre"
+                                value={formulario.nombre}
+                                onChange={actualizar}
+                                aria-invalid={Boolean(errores.nombre)}
+                            />
+                            {errores.nombre && <span className="form-error">{errores.nombre}</span>}
+                        </div>
 
-                <button className="btn" type="submit">
-                    Enviar mensaje
-                </button>
-            </form>
+                        <div className="form-field">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
+                                placeholder="tu@email.com"
+                                value={formulario.email}
+                                onChange={actualizar}
+                                aria-invalid={Boolean(errores.email)}
+                            />
+                            {errores.email && <span className="form-error">{errores.email}</span>}
+                        </div>
+
+                        <div className="form-field">
+                            <label htmlFor="mensaje">Mensaje</label>
+                            <textarea
+                                id="mensaje"
+                                name="mensaje"
+                                rows="6"
+                                placeholder="Quiero consultar por..."
+                                value={formulario.mensaje}
+                                onChange={actualizar}
+                                aria-describedby="mensaje-ayuda"
+                                aria-invalid={Boolean(errores.mensaje)}
+                            />
+                            <span className="form-help" id="mensaje-ayuda">
+                                Incluí medidas, madera preferida o el producto que viste en el catálogo.
+                            </span>
+                            {errores.mensaje && <span className="form-error">{errores.mensaje}</span>}
+                        </div>
+
+                        <div className="btn-row">
+                            <button className="btn btn-primary" type="submit">
+                                Enviar mensaje
+                            </button>
+                            <button className="btn" type="button" onClick={limpiar}>
+                                Limpiar
+                            </button>
+                        </div>
+                    </form>
+                </article>
+
+                <aside className="contact-aside" aria-labelledby="titulo-datos-contacto">
+                    <div className="contact-image">
+                        <img
+                            src="/img/aparador-bruma.jpg"
+                            alt="Aparador Bruma de Hermanos Jota en la Casa Taller"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <p className="eyebrow">Casa Taller</p>
+                    <h2 id="titulo-datos-contacto">Hermanos Jota</h2>
+
+                    <dl className="detail-specs">
+                        <div className="spec-row">
+                            <dt>Dirección</dt>
+                            <dd>Av. San Juan 2847, San Cristóbal, CABA</dd>
+                        </div>
+                        <div className="spec-row">
+                            <dt>Horarios</dt>
+                            <dd>Lunes a viernes de 10:00 a 19:00. Sábados de 10:00 a 14:00.</dd>
+                        </div>
+                        <div className="spec-row">
+                            <dt>Email</dt>
+                            <dd>
+                                <a className="email-contact" href="mailto:info@hermanosjota.com.ar">
+                                    info@hermanosjota.com.ar
+                                </a>
+                            </dd>
+                        </div>
+                        <div className="spec-row">
+                            <dt>WhatsApp</dt>
+                            <dd>
+                                <a className="email-contact" href="https://wa.me/541145678900">
+                                    +54 11 4567-8900
+                                </a>
+                            </dd>
+                        </div>
+                        <div className="spec-row">
+                            <dt>Instagram</dt>
+                            <dd>
+                                <a className="email-contact" href="https://www.instagram.com/hermanosjota_ba">
+                                    @hermanosjota_ba
+                                </a>
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <div className="btn-row">
+                        <a className="btn" href="mailto:ventas@hermanosjota.com.ar">
+                            Ventas
+                        </a>
+                        <a className="btn" href="https://wa.me/541145678900">
+                            WhatsApp
+                        </a>
+                    </div>
+                </aside>
+            </div>
         </section>
     );
 };
