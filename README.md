@@ -1,3 +1,5 @@
+# ITBA
+
 # E-commerce Mueblería Hermanos Jota
 
 Sitio de e-commerce para Hermanos Jota, una mueblería de Buenos Aires que trabaja con maderas
@@ -6,12 +8,12 @@ tostado, verde salvia y alabastro cálido, tipografías Inter y Playfair Display
 
 ## Integrantes
 
-- (completar)
+Dante Lamorte
 
 ## Arquitectura
 
 ```
-papu/
+Entregable 2/
 ├── backend/            API REST con Node.js y Express
 │   ├── data/           productos.js, el array de objetos que sirve la API
 │   ├── middlewares/    logger y manejadores de 404 y de errores
@@ -20,7 +22,7 @@ papu/
 └── client/             aplicación de React (create-react-app)
     ├── public/img/     las fotos de las piezas y el logo
     └── src/
-        ├── components/ Navbar, Footer, Home, ProductCard, ProductList, ProductDetail, ContactForm
+        ├── components/ Navbar, Footer, ProductCard, ProductList, ProductDetail, ContactForm
         ├── api.js      las llamadas al backend, con la URL en un solo lugar
         ├── formato.js  el formateo de precios
         ├── App.js      estado del carrito, de la vista y la carga del catálogo
